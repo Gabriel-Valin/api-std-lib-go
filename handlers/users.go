@@ -21,6 +21,16 @@ func Users(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Invalid JSON", http.StatusBadRequest)
 			return
 		}
+
+		newUser := users.User{
+			ID:    "3",
+			Name:  req.Name,
+			Email: req.Email,
+		}
+
+		users.All = append(users.All, newUser)
+		w.WriteHeader(http.StatusCreated)
+
 		if err := json.NewEncoder(w).Encode(req); err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
