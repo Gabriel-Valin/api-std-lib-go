@@ -10,6 +10,9 @@ import (
 
 func Users(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
+		users.Mu.RLock()
+		defer users.Mu.RUnlock()
+
 		if err := json.NewEncoder(w).Encode(users.All); err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
@@ -23,6 +26,7 @@ func Users(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		users.Mu.Lock()
 		newUser := users.User{
 			ID:    strconv.Itoa(len(users.All) + 1),
 			Name:  req.Name,
@@ -30,6 +34,8 @@ func Users(w http.ResponseWriter, r *http.Request) {
 		}
 
 		users.All = append(users.All, newUser)
+		users.Mu.Unlock()
+
 		w.WriteHeader(http.StatusCreated)
 
 		if err := json.NewEncoder(w).Encode(req); err != nil {

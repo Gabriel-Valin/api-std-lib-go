@@ -1,5 +1,7 @@
 package users
 
+import "sync"
+
 type CreateUserRequest struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
@@ -10,6 +12,8 @@ type User struct {
 	Name  string `json:"name"`
 	Email string `json:"email"`
 }
+
+var Mu sync.RWMutex
 
 var All = []User{
 	{
