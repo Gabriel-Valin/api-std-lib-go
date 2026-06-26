@@ -1,6 +1,9 @@
 package users
 
-import "sync"
+import (
+	"strconv"
+	"sync"
+)
 
 type CreateUserRequest struct {
 	Name  string `json:"name"`
@@ -13,9 +16,9 @@ type User struct {
 	Email string `json:"email"`
 }
 
-var Mu sync.RWMutex
+var mu sync.RWMutex
 
-var All = []User{
+var all = []User{
 	{
 		ID:   "1",
 		Name: "Gabriel",
@@ -24,4 +27,25 @@ var All = []User{
 		ID:   "2",
 		Name: "valin",
 	},
+}
+
+func List() []User {
+	mu.RLock()
+	defer mu.RUnlock()
+	return all
+}
+
+func Create(req CreateUserRequest) User {
+	mu.Lock()
+	defer mu.Unlock()
+
+	newUser := User{
+		ID:    strconv.Itoa(len(all) + 1),
+		Name:  req.Name,
+		Email: req.Email,
+	}
+
+	all = append(all, newUser)
+
+	return newUser
 }

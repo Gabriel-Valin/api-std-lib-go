@@ -3,17 +3,13 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
-	"strconv"
 
 	"github.com/Gabriel-Valin/products-api/internal/users"
 )
 
 func Users(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		users.Mu.RLock()
-		defer users.Mu.RUnlock()
-
-		if err := json.NewEncoder(w).Encode(users.All); err != nil {
+		if err := json.NewEncoder(w).Encode(users.List()); err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
 		}
@@ -26,19 +22,11 @@ func Users(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		users.Mu.Lock()
-		newUser := users.User{
-			ID:    strconv.Itoa(len(users.All) + 1),
-			Name:  req.Name,
-			Email: req.Email,
-		}
-
-		users.All = append(users.All, newUser)
-		users.Mu.Unlock()
+		newUser := users.Create(req)
 
 		w.WriteHeader(http.StatusCreated)
 
-		if err := json.NewEncoder(w).Encode(req); err != nil {
+		if err := json.NewEncoder(w).Encode(newUser); err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
 		}
