@@ -29,6 +29,19 @@ var all = []User{
 	},
 }
 
+func GetByID(id string) (User, bool) {
+	mu.RLock()
+	defer mu.RUnlock()
+
+	for _, user := range all {
+		if user.ID == id {
+			return user, true
+		}
+	}
+
+	return User{}, false
+}
+
 func List() []User {
 	mu.RLock()
 	defer mu.RUnlock()

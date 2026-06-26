@@ -12,6 +12,7 @@ func main() {
 
 	http.HandleFunc("/health", handlers.Health)
 	http.HandleFunc("/users", handlers.Users)
+	http.HandleFunc("/users/", handlers.UserByID)
 
 	err := http.ListenAndServe(":8080", nil)
 	log.Fatal(err)
