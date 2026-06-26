@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/Gabriel-Valin/products-api/internal/users"
 )
@@ -23,7 +24,7 @@ func Users(w http.ResponseWriter, r *http.Request) {
 		}
 
 		newUser := users.User{
-			ID:    "3",
+			ID:    strconv.Itoa(len(users.All) + 1),
 			Name:  req.Name,
 			Email: req.Email,
 		}
