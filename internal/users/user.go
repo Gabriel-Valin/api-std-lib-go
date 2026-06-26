@@ -32,7 +32,10 @@ var all = []User{
 func List() []User {
 	mu.RLock()
 	defer mu.RUnlock()
-	return all
+
+	usersCopy := make([]User, len(all))
+	copy(usersCopy, all)
+	return usersCopy
 }
 
 func Create(req CreateUserRequest) User {
