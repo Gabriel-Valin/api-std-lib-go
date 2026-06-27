@@ -4,11 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
-
-	"github.com/Gabriel-Valin/products-api/internal/users"
 )
 
-func UserByID(w http.ResponseWriter, r *http.Request) {
+func (h *UsersHandler) UserByID(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
@@ -21,7 +19,7 @@ func UserByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, ok := users.GetByID(id)
+	user, ok := h.store.GetByID(id)
 	if !ok {
 		http.Error(w, "User not found", http.StatusNotFound)
 		return
@@ -29,6 +27,5 @@ func UserByID(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.NewEncoder(w).Encode(user); err != nil {
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
 	}
 }
