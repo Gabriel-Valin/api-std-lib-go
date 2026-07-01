@@ -26,7 +26,7 @@ func (h *UsersHandler) UserByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := h.store.GetByID(ctx, id)
+	user, err := h.service.GetByID(ctx, id)
 	if err != nil {
 
 		if errors.Is(err, users.ErrUserNotFound) {

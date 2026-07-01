@@ -8,12 +8,12 @@ import (
 )
 
 type UsersHandler struct {
-	store users.UserStore
+	service users.Service
 }
 
-func NewUsersHandler(store users.UserStore) *UsersHandler {
+func NewUsersHandler(service users.Service) *UsersHandler {
 	return &UsersHandler{
-		store: store,
+		service: service,
 	}
 }
 
@@ -24,7 +24,7 @@ func (h *UsersHandler) Users(w http.ResponseWriter, r *http.Request) {
 
 	case http.MethodGet:
 
-		usersList, err := h.store.List(ctx)
+		usersList, err := h.service.List(ctx)
 		if err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
@@ -44,7 +44,7 @@ func (h *UsersHandler) Users(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		user, err := h.store.Create(ctx, req)
+		user, err := h.service.Create(ctx, req)
 		if err != nil {
 			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 			return
