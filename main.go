@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/Gabriel-Valin/products-api/handlers"
+	"github.com/Gabriel-Valin/products-api/internal/middlewares"
 	"github.com/Gabriel-Valin/products-api/internal/users"
 	_ "github.com/jackc/pgx/v5/stdlib"
 )
@@ -37,7 +38,7 @@ func main() {
 
 	usersHandler := handlers.NewUsersHandler(store)
 
-	http.HandleFunc("/users", usersHandler.Users)
+	http.Handle("/users", middlewares.Logger(http.HandlerFunc(usersHandler.Users)))
 	http.HandleFunc("/users/", usersHandler.UserByID)
 
 	log.Println("Server starting on :8080")
