@@ -11,3 +11,12 @@ var (
 	ErrEmailRequired = errors.New("email is required")
 	ErrInvalidEmail  = errors.New("invalid email")
 )
+
+type ValidationError struct {
+	Field   string `json:"field"`
+	Message string `json:"message"`
+}
+
+func (e ValidationError) Error() string {
+	return e.Field + ": " + e.Message
+}

@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/Gabriel-Valin/products-api/internal/users"
@@ -42,6 +43,20 @@ func (h *UsersHandler) Users(w http.ResponseWriter, r *http.Request) {
 		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 			http.Error(w, "Invalid JSON", http.StatusBadRequest)
 			return
+		}
+
+		if err := req.Validate(); err != nil {
+			var validationErr users.ValidationError
+			if errors.As(err, &validationErr) {
+				w.WriteHeader(http.StatusBadRequest)
+				json.NewEncoder(w).Encode(map[string]any{
+					"error": validationErr,
+				})
+				return
+			}
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+
 		}
 
 		user, err := h.service.Create(ctx, req)

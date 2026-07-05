@@ -15,15 +15,24 @@ type CreateUserRequest struct {
 
 func (r CreateUserRequest) Validate() error {
 	if strings.TrimSpace(r.Name) == "" {
-		return ErrNameRequired
+		return ValidationError{
+			Field:   "name",
+			Message: "is required",
+		}
 	}
 
 	if strings.TrimSpace(r.Email) == "" {
-		return ErrEmailRequired
+		return ValidationError{
+			Field:   "email",
+			Message: "is required",
+		}
 	}
 
 	if !strings.Contains(r.Email, "@") {
-		return ErrInvalidEmail
+		return ValidationError{
+			Field:   "email",
+			Message: "is invalid",
+		}
 	}
 
 	return nil
