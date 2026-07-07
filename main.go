@@ -38,12 +38,18 @@ func main() {
 
 	usersHandler := handlers.NewUsersHandler(store)
 
-	http.Handle("/users", middlewares.Logger(http.HandlerFunc(usersHandler.Users)))
-	http.HandleFunc("/users/", usersHandler.UserByID)
+	mux := http.NewServeMux()
+	mux.Handle("/users", middlewares.Logger(http.HandlerFunc(usersHandler.Users)))
+	mux.HandleFunc("/users/", usersHandler.UserByID)
 
 	log.Println("Server starting on :8080")
-
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	handler := middlewares.Chain(
+		mux,
+		middlewares.Logger,
+		middlewares.Recovery,
+		middlewares.Timing,
+	)
+	if err := http.ListenAndServe(":8080", handler); err != nil {
 		log.Fatal(err)
 	}
 }
