@@ -15,7 +15,8 @@ func Timing(next http.Handler) http.Handler {
 		next.ServeHTTP(rw, r)
 
 		log.Printf(
-			"%s %s %d %dB completed in %s",
+			"request_id=%s method=%s path=%s status=%d size=%dB duration=%s",
+			GetRequestID(r.Context()),
 			r.Method,
 			r.URL.Path,
 			rw.statusCode,

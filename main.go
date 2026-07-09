@@ -46,6 +46,7 @@ func main() {
 	handler := middlewares.Chain(
 		mux,
 		middlewares.Logger,
+		middlewares.RequestID,
 		middlewares.Recovery,
 		middlewares.Timing,
 	)
