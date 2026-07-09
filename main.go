@@ -4,7 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"log"
+	"log/slog"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/Gabriel-Valin/products-api/handlers"
@@ -33,6 +35,9 @@ func main() {
 	if err := db.PingContext(ctx); err != nil {
 		log.Fatal(err)
 	}
+
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
+	slog.SetDefault(logger)
 
 	store := users.NewPostgresStore(db)
 

@@ -1,7 +1,7 @@
 package middlewares
 
 import (
-	"log"
+	"log/slog"
 	"net/http"
 )
 
@@ -9,8 +9,13 @@ func Recovery(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if err := recover(); err != nil {
-				log.Printf("panic recovered: %v", err)
-
+				slog.Error(
+					"panic recovered",
+					"request_id", GetRequestID(r.Context()),
+					"method", r.Method,
+					"path", r.URL.Path,
+					"panic", err,
+				)
 				http.Error(
 					w,
 					http.StatusText(http.StatusInternalServerError),
