@@ -4,7 +4,7 @@ import (
 	"context"
 )
 
-type UserStore interface {
+type Store interface {
 	List(ctx context.Context) ([]User, error)
 
 	Create(
