@@ -1,414 +1,262 @@
-Módulo 1 — Fundamentos do Go ✅
-
-Objetivo: aprender a linguagem.
-
-* ✅ Packages
-* ✅ Imports
-* ✅ main
-* ✅ Variáveis
-* ✅ Constantes
-* ✅ Structs
-* ✅ Métodos
-* ✅ Receivers
-* ✅ Ponteiros
-* ✅ Interfaces
-* ✅ Errors
-* ✅ Organização de packages
-
-⸻
-
-Módulo 2 — HTTP com a stdlib ✅
-
-Objetivo: entender o net/http.
-
-* ✅ http.ListenAndServe
-* ✅ http.Handle
-* ✅ http.HandleFunc
-* ✅ http.Handler
-* ✅ http.HandlerFunc
-* ✅ Rotas
-* ✅ Path Parameters
-* ✅ Status Codes
-* ✅ Headers (parcial)
-* ✅ Request
-* ✅ ResponseWriter
-
-⸻
-
-Módulo 3 — JSON ✅
-
-* ✅ encoding/json
-* ✅ json.Decoder
-* ✅ json.Encoder
-* ✅ Struct Tags
-* ✅ Streaming de JSON
-* ✅ Decode
-* ✅ Encode
-
-⸻
-
-Módulo 4 — Organização da aplicação ✅
-
-* ✅ internal/
-* ✅ Separação por domínio
-* ✅ Handler
-* ✅ Store
-* ✅ MemoryStore
-* ✅ PostgresStore
-* ✅ Composition Root
-* ✅ Dependency Injection manual
-* ✅ Constructors (NewXxx)
-* ✅ Interfaces orientadas por comportamento
-
-⸻
-
-Módulo 5 — Context ✅
-
-* ✅ context.Context
-* ✅ r.Context()
-* ✅ context.Background()
-* ✅ context.WithTimeout
-* ✅ Propagação do Context
-* ✅ Cancelamento
-* ✅ Deadlines
-
-⸻
-
-Módulo 6 — Concorrência (introdução) ✅
-
-Ainda sem goroutines.
-
-Mas já aprendemos:
-
-* ✅ sync.RWMutex
-* ✅ Lock
-* ✅ Unlock
-* ✅ RLock
-* ✅ RUnlock
-* ✅ Estado compartilhado
-* ✅ Thread safety
-
-Mais tarde estudaremos concorrência de verdade.
-
-⸻
-
-Módulo 7 — Banco de Dados (database/sql) ✅
-
-Até agora:
-
-* ✅ Driver PostgreSQL
-* ✅ Blank Import
-* ✅ sql.DB
-* ✅ Pool de conexões
-* ✅ sql.Open
-* ✅ PingContext
-* ✅ Configuração do pool
-* ✅ QueryContext
-* ✅ QueryRowContext
-* ✅ ExecContext
-* ✅ Rows
-* ✅ Row
-* ✅ Scan
-* ✅ Placeholders ($1)
-* ✅ RETURNING
-* ✅ rows.Close
-* ✅ rows.Err
-
-⸻
-
-Módulo 8 — Erros ✅
-
-* ✅ errors.New
-* ✅ errors.Is
-* ✅ errors.As
-* ✅ Erros de domínio
-* ✅ ValidationError
-* ✅ Separação entre erro técnico e erro de domínio
-
-⸻
-
-Módulo 9 — Validação ✅
-
-* ✅ Validate()
-* ✅ Validação sem bibliotecas
-* ✅ strings.TrimSpace
-* ✅ strings.Contains
-
-⸻
-
-Módulo 10 — Middleware (em andamento)
-
-* ✅ http.Handler
-* ✅ ServeHTTP
-* ✅ Encadeamento de handlers
-
-Ainda falta bastante.
-
-⸻
-
-Até aqui…
-
-Já aprendemos aproximadamente:
-
-Packages da stdlib
-
-* ✅ net/http
-* ✅ encoding/json
-* ✅ database/sql
-* ✅ context
-* ✅ sync
-* ✅ errors
-* ✅ strings
-* ✅ strconv
-* ✅ time
-* ✅ log
-
-⸻
-
-O que ainda vamos aprender
-
-Agora começa a parte “profissional”.
-
-⸻
-
-Módulo 11 — Middleware (continuação)
-
-* Logging
-* Recovery
-* Request ID
-* CORS
-* Timeout
-* Compressão
-* Rate Limiting
-* Chain de middlewares
-
------
-
-Módulo 12 — Logging
-
-* log
-* slog
-* Logger estruturado
-* Levels
-* Attributes
-* Context
-* Request ID
-* JSON logs
-
-Módulo 13 — Testes
-
-Quero dedicar um módulo inteiro.
-
-* testing
-* httptest
-* Table Driven Tests
-* Subtests
-* Benchmarks
-* Fuzzing
-* Coverage
-* Integração com PostgreSQL
-* Fake Store
-* Test Helpers
-
-Na minha opinião, será um dos módulos mais importantes.
-
-⸻
-
-Módulo 14 — Transações
-
-Um dos assuntos mais importantes do backend.
-
-Vamos aprender:
-
-* sql.Tx
-* BeginTx
-* Commit
-* Rollback
-* defer Rollback
-* Nested transactions (conceito)
-* Isolation Levels
-* Deadlocks
-
-⸻
-
-Módulo 15 — Prepared Statements
-
-* PrepareContext
-* Statement Cache
-* Performance
-
-⸻
-
-Módulo 16 — Migrações
-
-* golang-migrate
-* Organização
-* Rollback
-* Seed
-
-⸻
-
-Módulo 17 — Configuração
-
-Hoje temos:
-postgres://...
-
-Depois teremos:
-
-* .env
-* Variáveis de ambiente
-* Config struct
-* Inicialização
-
------
-
-Módulo 18 — Observabilidade
-
-* log/slog
-* pprof
-* Metrics
-* Health Check
-* Readiness
-* Liveness
-
-⸻
-
-Módulo 19 — Concorrência
-
-Agora sim.
-
-Na minha opinião este será outro grande módulo.
-
-Vamos aprender:
-
-* Goroutines
-* Channels
-* WaitGroup
-* Context + Goroutines
-* Worker Pool
-* Fan In
-* Fan Out
-* Pipeline
-* Select
-* Mutex (mais profundo)
-* Atomic
-* Cond
-* Once
-
-Tudo aplicado na API.
-
-⸻
-
-Módulo 20 — Cache
-
-* Redis
-* Cache Aside
-* TTL
-* Invalidation
-
-⸻
-
-Módulo 21 — Autenticação
-
-* JWT
-* Refresh Token
-* Middleware
-* Hash de senha (crypto/bcrypt)
-* Cookies
-* Sessions
-
-⸻
-
-Módulo 22 — Uploads
-
-* Multipart
-* Arquivos
-* Streaming
-* Limites
-
-⸻
-
-Módulo 23 — RabbitMQ
-
-Porque você já trabalha bastante com mensageria.
-
-Vamos usar:
-
-* Publisher
-* Consumer
-* Retry
-* DLQ
-* Context
-* Graceful Shutdown
-
-⸻
-
-Módulo 24 — Graceful Shutdown
-
-Outro assunto extremamente importante.
-
-Aprenderemos:
-
-* Signals
-* os/signal
-* context.WithCancel
-* Fechar HTTP
-* Fechar DB
-* Fechar RabbitMQ
-
-⸻
-
-Módulo 25 — Performance
-
-* pprof
-* Benchmark
-* Escape Analysis
-* Heap
-* Stack
-* GC
-* Allocation
-* sync.Pool
-
-⸻
-
-Módulo 26 — Projeto Final
-
-Aí sim.
-
-Transformaremos esse CRUD em algo realmente interessante.
-
-Minha ideia seria um backend com:
-
-* Login
-* JWT
-* Produtos
-* Usuários
-* Categorias
-* Upload
-* RabbitMQ
-* Cache
-* PostgreSQL
-* Docker
-* Migrations
-* Testes
-* Observabilidade
-* Graceful Shutdown
-
-## E depois?
-
-A partir daí eu partiria para um segundo curso.
-
-Go Avançado
-
-* Reflection
-* Generics
-* Unsafe
-* Runtime
-* Scheduler
-* Garbage Collector
-* Escape Analysis profunda
-* Compiler
-* Interfaces internamente
-* Memory Layout
-* Race Detector
-* Profiling avançado
+# Course Roadmap
+
+## Module 1 — Go Fundamentals
+- Packages and project structure
+- Variables and constants
+- Functions
+- Structs
+- Methods and receivers
+- Pointers
+- Interfaces
+- Error handling
+- Dependency injection fundamentals
+
+---
+
+## Module 2 — Building HTTP APIs with the Standard Library
+- net/http
+- http.Handler
+- http.HandlerFunc
+- ServeMux
+- Request and ResponseWriter
+- Routing
+- HTTP status codes
+- Headers
+- REST API fundamentals
+
+---
+
+## Module 3 — Working with JSON
+- encoding/json
+- JSON decoding
+- JSON encoding
+- Struct tags
+- Streaming JSON
+- Request validation
+
+---
+
+## Module 4 — Application Architecture
+- Layered architecture
+- Handlers
+- Services
+- Stores (Repositories)
+- In-memory implementation
+- PostgreSQL implementation
+- Composition Root
+- Dependency Injection
+- Project structure
+
+---
+
+## Module 5 — Context
+- context.Context
+- Request-scoped values
+- Deadlines
+- Timeouts
+- Cancellation
+- Context propagation
+
+---
+
+## Module 6 — PostgreSQL with database/sql
+- database/sql
+- Connection pooling
+- Queries
+- Inserts
+- Updates
+- Deletes
+- Scanning rows
+- Prepared statements
+- Error handling
+- CRUD implementation
+
+---
+
+## Module 7 — Configuration Management
+- Configuration architecture
+- Typed configuration
+- Environment variables
+- .env files
+- Validation
+- Environment-specific configuration
+- Application bootstrap
+
+---
+
+## Module 8 — HTTP Middleware
+- Middleware fundamentals
+- Middleware chaining
+- Logging middleware
+- Recovery middleware
+- Timing middleware
+- Request ID middleware
+- Custom ResponseWriter
+- Request pipeline
+
+---
+
+## Module 9 — Structured Logging
+- log/slog
+- Structured logging
+- Context-aware logging
+- Stack traces
+- Request correlation
+- Production-ready logging
+
+---
+
+## Module 10 — Graceful Shutdown
+- http.Server
+- Signal handling
+- Graceful shutdown
+- Resource cleanup
+- Connection draining
+- Production lifecycle
+
+---
+
+## Module 11 — Testing
+- Unit testing
+- Table-driven tests
+- httptest
+- Integration tests
+- Fake implementations
+- Test helpers
+- Benchmarks
+- Fuzz testing
+- Race detector
+- Coverage
+
+---
+
+## Module 12 — Database Transactions
+- sql.Tx
+- Transactions
+- Commit
+- Rollback
+- Isolation levels
+- Deadlocks
+- Best practices
+
+---
+
+## Module 13 — Database Migrations
+- golang-migrate
+- Versioned migrations
+- Rollbacks
+- Seed data
+- Migration workflow
+
+---
+
+## Module 14 — Observability
+- Health checks
+- Readiness probes
+- Liveness probes
+- pprof
+- Metrics
+- Performance profiling
+- Application diagnostics
+
+---
+
+## Module 15 — Concurrency
+- Goroutines
+- Channels
+- Select
+- WaitGroup
+- Mutexes
+- RWMutex
+- Atomic operations
+- Worker pools
+- Pipelines
+- Fan-in / Fan-out
+- Context with goroutines
+- sync.Once
+- sync.Cond
+- sync.Map
+
+---
+
+## Module 16 — Caching
+- Redis
+- Cache-aside pattern
+- TTL
+- Cache invalidation
+- Performance optimization
+
+---
+
+## Module 17 — Messaging
+- RabbitMQ
+- Publishers
+- Consumers
+- Retries
+- Dead Letter Queues
+- Idempotency
+- Outbox pattern
+- Graceful consumer shutdown
+
+---
+
+## Module 18 — Authentication & Authorization
+- Password hashing
+- JWT
+- Refresh tokens
+- Authentication middleware
+- Authorization
+- Role-Based Access Control (RBAC)
+
+---
+
+## Module 19 — File Uploads
+- Multipart forms
+- Streaming uploads
+- File validation
+- Local storage
+- Cloud storage concepts
+
+---
+
+## Module 20 — Final Project
+Build a production-ready REST API featuring:
+- Authentication
+- Users
+- Products
+- Categories
+- PostgreSQL
+- Redis
+- RabbitMQ
+- File uploads
+- Migrations
+- Testing
+- Logging
+- Observability
+- Graceful shutdown
+- Docker deployment
+
+---
+
+## Module 21 — Advanced Go (Bonus)
+- Runtime internals
+- Scheduler
+- Garbage Collector
+- Escape analysis
+- Memory layout
+- Reflection
+- Generics
+- Unsafe
+- Interface internals
+- Compiler optimizations
+
+---
+
+## Module 22 — Performance Engineering (Bonus)
+- Benchmark-driven optimization
+- CPU profiling
+- Memory profiling
+- Allocation analysis
+- sync.Pool
+- Performance tuning
+- Real-world optimization techniques
