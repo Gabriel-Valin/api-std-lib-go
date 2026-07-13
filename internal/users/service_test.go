@@ -1,6 +1,9 @@
 package users
 
-import "testing"
+import (
+	"context"
+	"testing"
+)
 
 func TestCreateUserRequestValidate(t *testing.T) {
 	tests := []struct {
@@ -54,5 +57,45 @@ func TestCreateUserRequestValidate(t *testing.T) {
 				t.Fatalf("unexpected error: %v", err)
 			}
 		})
+	}
+}
+
+func TestUserServiceCreate(t *testing.T) {
+	store := &fakeStore{
+		createFn: func(
+			ctx context.Context,
+			req CreateUserRequest,
+		) (User, error) {
+			return User{
+				ID:    1,
+				Name:  req.Name,
+				Email: req.Email,
+			}, nil
+		},
+	}
+
+	service := NewService(store)
+	user, err := service.Create(
+
+		context.Background(),
+		CreateUserRequest{
+			Name:  "Gabriel",
+			Email: "gabriel@example.com",
+		},
+	)
+
+	if err != nil {
+		t.Fatalf(
+			"unexpected error: %v",
+			err,
+		)
+	}
+
+	if user.ID != 1 {
+		t.Fatal("unexpected id")
+	}
+
+	if user.Name != "Gabriel" {
+		t.Fatal("unexpected name")
 	}
 }
