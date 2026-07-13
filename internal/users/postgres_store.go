@@ -7,11 +7,13 @@ import (
 )
 
 type PostgresStore struct {
-	db *sql.DB
+	db DBTX
 }
 
-func NewPostgresStore(db *sql.DB) *PostgresStore {
-	return &PostgresStore{db: db}
+func NewPostgresStore(db DBTX) *PostgresStore {
+	return &PostgresStore{
+		db: db,
+	}
 }
 
 func (s *PostgresStore) List(ctx context.Context) ([]User, error) {
