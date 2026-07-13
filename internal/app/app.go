@@ -10,8 +10,8 @@ import (
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 
+	"github.com/Gabriel-Valin/products-api/internal/api"
 	"github.com/Gabriel-Valin/products-api/internal/config"
-	handlers "github.com/Gabriel-Valin/products-api/internal/http"
 	"github.com/Gabriel-Valin/products-api/internal/middlewares"
 	"github.com/Gabriel-Valin/products-api/internal/users"
 )
@@ -56,12 +56,12 @@ func New() (*App, error) {
 	store := users.NewPostgresStore(db)
 
 	service := users.NewService(store)
-	usersHandler := handlers.NewUsersHandler(service)
+	usersHandler := api.NewUsersHandler(service)
 
 	mux := http.NewServeMux()
 	mux.Handle(
 		"/health",
-		http.HandlerFunc(handlers.Health),
+		http.HandlerFunc(api.Health),
 	)
 
 	mux.Handle(
@@ -71,7 +71,7 @@ func New() (*App, error) {
 
 	mux.Handle(
 		"/users/",
-		http.HandlerFunc(usersHandler.UserByID),
+		http.HandlerFunc(usersHandler.GetByID),
 	)
 
 	handler := middlewares.Chain(

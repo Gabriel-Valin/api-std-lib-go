@@ -107,7 +107,8 @@ func TestUserServiceCreate(t *testing.T) {
 			)
 
 			if tt.wantErr != nil {
-				if !errors.Is(err, tt.wantErr) && !errors.As(err, &ValidationError{}) {
+				var validationErr ValidationError
+				if !errors.Is(err, tt.wantErr) && !errors.As(err, &validationErr) {
 					t.Fatalf(
 						"expected error %v, got %v",
 						tt.wantErr,

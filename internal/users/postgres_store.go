@@ -3,6 +3,7 @@ package users
 import (
 	"context"
 	"database/sql"
+	"errors"
 )
 
 type PostgresStore struct {
@@ -60,6 +61,10 @@ func (s *PostgresStore) GetByID(ctx context.Context, id int) (User, error) {
 	)
 
 	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return User{}, ErrUserNotFound
+		}
+
 		return User{}, err
 	}
 
