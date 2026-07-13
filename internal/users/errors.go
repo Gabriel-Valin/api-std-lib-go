@@ -10,6 +10,7 @@ var (
 	ErrNameRequired  = errors.New("name is required")
 	ErrEmailRequired = errors.New("email is required")
 	ErrInvalidEmail  = errors.New("invalid email")
+	ErrInternal      = errors.New("internal error")
 )
 
 type ValidationError struct {

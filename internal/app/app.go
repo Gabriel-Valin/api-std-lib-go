@@ -10,8 +10,8 @@ import (
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 
-	"github.com/Gabriel-Valin/products-api/handlers"
 	"github.com/Gabriel-Valin/products-api/internal/config"
+	handlers "github.com/Gabriel-Valin/products-api/internal/http"
 	"github.com/Gabriel-Valin/products-api/internal/middlewares"
 	"github.com/Gabriel-Valin/products-api/internal/users"
 )
@@ -59,6 +59,10 @@ func New() (*App, error) {
 	usersHandler := handlers.NewUsersHandler(service)
 
 	mux := http.NewServeMux()
+	mux.Handle(
+		"/health",
+		http.HandlerFunc(handlers.Health),
+	)
 
 	mux.Handle(
 		"/users",
